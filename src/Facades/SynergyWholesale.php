@@ -1,4 +1,4 @@
-<?php namespace Hampel\SynergyWholesale\Facades;
+<?php namespace SynergyWholesale\Facades;
 /**
  *
  */

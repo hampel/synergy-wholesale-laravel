@@ -1,6 +1,6 @@
-<?php namespace Hampel\SynergyWholesale;
+<?php namespace SynergyWholesale;
 
-use Hampel\SynergyWholesale\SynergyWholesale;
+use SoapClient;
 use Illuminate\Support\ServiceProvider;
 
 class SynergyWholesaleServiceProvider extends ServiceProvider {

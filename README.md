@@ -38,7 +38,7 @@ Open your Laravel config file `app/config/app.php` and add the service provider 
 
         ...
 
-        'Hampel\SynergyWholesale\SynergyWholesaleServiceProvider'
+        'SynergyWholesale\Laravel\SynergyWholesaleServiceProvider'
 
     ),
 
@@ -49,7 +49,7 @@ You may also optionally add an alias entry to the `$aliases` array in the same f
 
     	...
 
-    	'SynergyWholesale'			  => 'Hampel\SynergyWholesale\Facades\SynergyWholesale',
+    	'SynergyWholesale'			  => 'SynergyWholesale\Laravel\Facades\SynergyWholesale',
 
     ),
 
