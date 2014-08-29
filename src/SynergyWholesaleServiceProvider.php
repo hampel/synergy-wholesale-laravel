@@ -19,7 +19,21 @@ class SynergyWholesaleServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('hampel/synergy-wholesale-laravel');
+		$this->package('hampel/synergy-wholesale-laravel', 'synergy-wholesale', __DIR__);
+
+		$this->app['synergy-wholesale'] = $this->app->share(function($app)
+		{
+			$reseller_id = $app['config']->get('services.synergy-wholesale.reseller_id');
+			$api_key = $app['config']->get('services.synergy-wholesale.api_key');
+
+			$client = new SoapClient(null, array('location' => SynergyWholesale::WSDL_URL, 'uri' => ''));
+			$responseGenerator = $app->make('SynergyWholesale\ResponseGenerator');
+
+			$logger = $app['log']->getMonolog();
+
+			return new SynergyWholesale($client, $responseGenerator, $logger, $reseller_id, $api_key);
+		});
+
 	}
 
 	/**
@@ -29,13 +43,7 @@ class SynergyWholesaleServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app['synergy-wholesale'] = $this->app->share(function($app)
-		{
-			$reseller_id = $app['config']->get('services.synergy-wholesale.reseller_id');
-			$api_key = $app['config']->get('services.synergy-wholesale.api_key');
-
-			return SynergyWholesale::make($reseller_id, $api_key);
-		});
+		$this->app->bind('SynergyWholesale\ResponseGenerator', 'SynergyWholesale\BasicResponseGenerator');
 	}
 
 	/**
