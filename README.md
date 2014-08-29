@@ -69,7 +69,7 @@ Usage
 Use Laravel's App facade to gain access to the service provider in your code:
 
     :::php
-    use Hampel\SynergyWholesale\Commands\CheckDomainCommand;
+    use SynergyWholesale\Commands\CheckDomainCommand;
 
     $sw = App::make('synergy-wholesale');
     $available = $sw->execute(new CheckDomainCommand(new Domain('example.com')));
