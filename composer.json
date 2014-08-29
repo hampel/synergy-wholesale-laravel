@@ -31,7 +31,7 @@
     },
     "autoload": {
   		"psr-4" : {
-			"SynergyWholesale\\" : "src/"
+			"SynergyWholesale\\Laravel\\" : "src/"
 		}
     },
     "extra": {

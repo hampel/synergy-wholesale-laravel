@@ -1,4 +1,4 @@
-<?php namespace SynergyWholesale\Facades;
+<?php namespace SynergyWholesale\Laravel\Facades;
 /**
  *
  */

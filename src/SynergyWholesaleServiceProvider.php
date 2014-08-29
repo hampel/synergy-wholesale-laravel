@@ -1,6 +1,7 @@
-<?php namespace SynergyWholesale;
+<?php namespace SynergyWholesale\Laravel;
 
 use SoapClient;
+use SynergyWholesale\SynergyWholesale;
 use Illuminate\Support\ServiceProvider;
 
 class SynergyWholesaleServiceProvider extends ServiceProvider {
