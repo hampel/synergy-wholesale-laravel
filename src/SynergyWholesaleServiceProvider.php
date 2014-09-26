@@ -20,9 +20,7 @@ class SynergyWholesaleServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('hampel/synergy-wholesale-laravel', 'synergy-wholesale', __DIR__);
-
-		$this->app['synergy-wholesale'] = $this->app->share(function($app)
+		$this->app->bindShared('synergy-wholesale', function($app)
 		{
 			$reseller_id = $app['config']->get('services.synergy-wholesale.reseller_id');
 			$api_key = $app['config']->get('services.synergy-wholesale.api_key');
@@ -44,6 +42,8 @@ class SynergyWholesaleServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
+		$this->package('hampel/synergy-wholesale-laravel', 'synergy-wholesale', __DIR__);
+
 		$this->app->bind('SynergyWholesale\ResponseGenerator', 'SynergyWholesale\BasicResponseGenerator');
 	}
 
