@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+0.3.0 (2014-08-31)
+------------------
+
+* updated requirements to use version 0.3.0 of SynergyWholesale class
+
 0.2.0 (2014-08-29)
 ------------------
 
