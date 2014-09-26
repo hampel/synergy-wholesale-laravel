@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+0.4.0 (2014-09-26)
+------------------
+
+* updated requirements to Laravel v5.0
+* updated minimum PHP version to 5.4.0
+* changed dev-master alias to 0.4.x
+* changed minimin-stability to dev to work with Laravel v5.0 pre-release
+* service provider tweaks
+
 0.3.1 (2014-09-26)
 ------------------
 
