@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+0.4.1 (2014-10-15)
+------------------
+
+* updated requirement version for hampel/synergy-wholesale package
+
 0.4.0 (2014-09-26)
 ------------------
 
