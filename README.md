@@ -20,7 +20,7 @@ Require the package via Composer in your `composer.json`
     :::json
     {
         "require": {
-            "hampel/synergy-wholesale-laravel": "~0.4"
+            "hampel/synergy-wholesale-laravel": "~0.5"
         }
     }
 
