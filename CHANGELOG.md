@@ -1,7 +1,8 @@
 CHANGELOG
 =========
 
-0.4.2 (2014-11-27)
+0.5.0 (2014-11-27)
+------------------
 
 * updated requirements for hampel/synergy-wholesale to ~0.5
 
