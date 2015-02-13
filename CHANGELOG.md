@@ -1,6 +1,16 @@
 CHANGELOG
 =========
 
+1.0.0 (2015-02-13)
+------------------
+
+* service provider now Laravel 5 compatible
+* moved to using .env files for configuration
+* removed unnecessary Laravel from namespace
+* updated composer.json to use new 1.0 release of hampel/synergy-wholesale
+* updated namespaceing
+* updated branch-alias
+
 0.5.0 (2014-11-27)
 ------------------
 
