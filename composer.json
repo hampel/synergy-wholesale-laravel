@@ -1,6 +1,6 @@
 {
     "name": "hampel/synergy-wholesale-laravel",
-    "description": "A Laravel 4 service provider for accessing Synergy Wholesale via PHP",
+    "description": "A Laravel service provider for accessing Synergy Wholesale via PHP",
 	"homepage": "https://bitbucket.org/hampel/synergy-wholesale-laravel",
 	"authors": [{
 		"name": "Simon Hampel",
@@ -26,17 +26,17 @@
 	],
     "require": {
         "illuminate/support": "~5.0",
-		"hampel/synergy-wholesale": "~0.5",
+		"hampel/synergy-wholesale": "~1.0",
 		"php": ">=5.4.0"
     },
     "autoload": {
   		"psr-4" : {
-			"SynergyWholesale\\Laravel\\" : "src/"
+			"SynergyWholesale\\" : "src/"
 		}
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.4.x-dev"
+            "dev-master": "1.0.x-dev"
         }
     },
  	"minimum-stability": "dev",
