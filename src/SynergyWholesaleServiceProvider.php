@@ -1,7 +1,7 @@
-<?php namespace SynergyWholesale\Laravel;
+<?php namespace SynergyWholesale;
 
 use SoapClient;
-use SynergyWholesale\SynergyWholesale;
+use SynergyWholesale\SynergyWholesale as SynergyWholesaleApi;
 use Illuminate\Support\ServiceProvider;
 
 class SynergyWholesaleServiceProvider extends ServiceProvider {
@@ -14,37 +14,44 @@ class SynergyWholesaleServiceProvider extends ServiceProvider {
 	protected $defer = true;
 
 	/**
-	 * Bootstrap the application events.
-	 *
-	 * @return void
-	 */
-	public function boot()
-	{
-		$this->app->bindShared('synergy-wholesale', function($app)
-		{
-			$reseller_id = $app['config']->get('services.synergy-wholesale.reseller_id');
-			$api_key = $app['config']->get('services.synergy-wholesale.api_key');
-
-			$client = new SoapClient(null, array('location' => SynergyWholesale::WSDL_URL, 'uri' => ''));
-			$responseGenerator = $app->make('SynergyWholesale\ResponseGenerator');
-
-			$logger = $app['log']->getMonolog();
-
-			return new SynergyWholesale($client, $responseGenerator, $logger, $reseller_id, $api_key);
-		});
-
-	}
-
-	/**
 	 * Register the service provider.
 	 *
 	 * @return void
 	 */
 	public function register()
 	{
-		$this->package('hampel/synergy-wholesale-laravel', 'synergy-wholesale', __DIR__);
-
 		$this->app->bind('SynergyWholesale\ResponseGenerator', 'SynergyWholesale\BasicResponseGenerator');
+	}
+
+	/**
+	 * Bootstrap the application events.
+	 *
+	 * @return void
+	 */
+	public function boot()
+	{
+		$this->defineConfiguration();
+
+		$this->app->bindShared('synergy-wholesale', function($app)
+		{
+			$reseller_id = $app['config']->get('synergy-wholesale.reseller_id');
+			$api_key = $app['config']->get('synergy-wholesale.api_key');
+
+			$client = new SoapClient(null, array('location' => SynergyWholesaleApi::WSDL_URL, 'uri' => ''));
+			$responseGenerator = $app->make('SynergyWholesale\ResponseGenerator');
+
+			$logger = $app['log']->getMonolog();
+
+			return new SynergyWholesaleApi($client, $responseGenerator, $logger, $reseller_id, $api_key);
+		});
+
+	}
+
+	protected function defineConfiguration()
+	{
+		$this->mergeConfigFrom(
+			__DIR__ . '/config/synergy-wholesale.php', 'synergy-wholesale'
+		);
 	}
 
 	/**
