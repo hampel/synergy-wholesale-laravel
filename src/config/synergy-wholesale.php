@@ -28,5 +28,3 @@ return array(
     'reseller_id' => env('SYNERGY_WHOLESALE_RESELLER_ID', ''),
 
 );
-
-?>

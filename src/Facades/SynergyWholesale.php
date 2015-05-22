@@ -10,5 +10,3 @@ class SynergyWholesale extends Facade {
     protected static function getFacadeAccessor() { return 'synergy-wholesale'; }
 
 }
-
-?>
