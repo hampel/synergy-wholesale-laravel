@@ -1,7 +1,6 @@
 <?php namespace SynergyWholesale;
 
 use SoapClient;
-use SynergyWholesale\SynergyWholesale as SynergyWholesaleApi;
 use Illuminate\Support\ServiceProvider;
 
 class SynergyWholesaleServiceProvider extends ServiceProvider {
@@ -32,17 +31,16 @@ class SynergyWholesaleServiceProvider extends ServiceProvider {
 	{
 		$this->defineConfiguration();
 
-		$this->app->singleton('synergy-wholesale', function($app)
+		$this->app->singleton('SynergyWholesale\SynergyWholesale', function($app)
 		{
 			$reseller_id = $app['config']->get('synergy-wholesale.reseller_id');
 			$api_key = $app['config']->get('synergy-wholesale.api_key');
 
-			$client = new SoapClient(null, array('location' => SynergyWholesaleApi::WSDL_URL, 'uri' => ''));
+			$client = new SoapClient(null, array('location' => SynergyWholesale::WSDL_URL, 'uri' => ''));
 			$responseGenerator = $app->make('SynergyWholesale\ResponseGenerator');
+			$logger = $app->make('Psr\Log\LoggerInterface');
 
-			$logger = $app['log']->getMonolog();
-
-			return new SynergyWholesaleApi($client, $responseGenerator, $logger, $reseller_id, $api_key);
+			return new SynergyWholesale($client, $responseGenerator, $logger, $reseller_id, $api_key);
 		});
 
 	}
@@ -61,7 +59,7 @@ class SynergyWholesaleServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array('synergy-wholesale');
+		return [SynergyWholesale::class];
 	}
 
 }
