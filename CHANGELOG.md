@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+1.2.1 (2016-08-07)
+------------------
+
+* shouldn't be using deferred service provider
+
 1.2.0 (2016-08-07)
 ------------------
 
