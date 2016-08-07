@@ -68,13 +68,13 @@ Use Laravel's App facade to gain access to the service provider in your code:
     :::php
     use SynergyWholesale\Commands\CheckDomainCommand;
 
-    $sw = App::make('synergy-wholesale');
+    $sw = App::make('SynergyWholesale\SynergyWholesale');
     $available = $sw->execute(new CheckDomainCommand(new Domain('example.com')));
 
 ... or chain them:
 
     :::php
-    $available = App::make('synergy-wholesale')->execute(new CheckDomainCommand(new Domain('example.com')));
+    $available = App::make('SynergyWholesale\SynergyWholesale')->execute(new CheckDomainCommand(new Domain('example.com')));
 
 ... or just use the Facade instead:
 

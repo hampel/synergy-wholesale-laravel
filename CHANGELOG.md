@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+1.2.0 (2016-08-07)
+------------------
+
+* changed facade to use classname
+* made more use of auto dependency injection in service provider binding 
+* updated documentation
+
 1.1.0 (2016-08-07)
 ------------------
 
