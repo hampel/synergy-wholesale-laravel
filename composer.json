@@ -25,9 +25,9 @@
 		"MIT"
 	],
     "require": {
-        "illuminate/support": "~5.0",
+        "illuminate/support": "5.2.*",
 		"hampel/synergy-wholesale": "~1.0",
-		"php": ">=5.4.0"
+		"php": ">=5.5.9"
     },
     "autoload": {
   		"psr-4" : {

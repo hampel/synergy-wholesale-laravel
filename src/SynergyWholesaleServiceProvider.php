@@ -32,7 +32,7 @@ class SynergyWholesaleServiceProvider extends ServiceProvider {
 	{
 		$this->defineConfiguration();
 
-		$this->app->bindShared('synergy-wholesale', function($app)
+		$this->app->singleton('synergy-wholesale', function($app)
 		{
 			$reseller_id = $app['config']->get('synergy-wholesale.reseller_id');
 			$api_key = $app['config']->get('synergy-wholesale.api_key');
