@@ -1,6 +1,8 @@
 <?php namespace SynergyWholesale;
 
 use SoapClient;
+use Psr\Log\LoggerInterface;
+use Illuminate\Cache\Repository;
 use Illuminate\Support\ServiceProvider;
 
 class SynergyWholesaleServiceProvider extends ServiceProvider {
@@ -12,7 +14,7 @@ class SynergyWholesaleServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app->bind('SynergyWholesale\ResponseGenerator', 'SynergyWholesale\BasicResponseGenerator');
+		$this->app->bind(ResponseGenerator::class, BasicResponseGenerator::class);
 	}
 
 	/**
@@ -30,10 +32,11 @@ class SynergyWholesaleServiceProvider extends ServiceProvider {
 			$api_key = $app['config']->get('synergy-wholesale.api_key');
 
 			$client = new SoapClient(null, array('location' => SynergyWholesale::WSDL_URL, 'uri' => ''));
-			$responseGenerator = $app->make('SynergyWholesale\ResponseGenerator');
-			$logger = $app->make('Psr\Log\LoggerInterface');
+			$responseGenerator = $app->make(ResponseGenerator::class);
+			$logger = $app->make(LoggerInterface::class);
+			$cache = $app->make(Repository::class);
 
-			return new SynergyWholesale($client, $responseGenerator, $logger, $reseller_id, $api_key);
+			return new CachingSynergyWholesale($client, $responseGenerator, $logger, $cache, $reseller_id, $api_key);
 		});
 
 	}
