@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+1.3.0 (2016-08-15)
+------------------
+
+* added caching to SynergyWholesaleServiceProvider
+
 1.2.1 (2016-08-07)
 ------------------
 
