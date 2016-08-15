@@ -125,14 +125,14 @@ class CachingSynergyWholesale extends SynergyWholesale
 			$response = $this->execute($command);
 
 			$available = collect($response->getAvailableDomains());
-			$available->transform(function ($avail, $domain) use ($cache_prefix, $cache_expiry) {
+			$available->transform(function ($isAvailable, $domain) use ($cache_prefix, $cache_expiry) {
 				$cache_key = "{$cache_prefix}.{$domain}";
-				$this->cache->put($cache_key, $avail, $cache_expiry);
+				$this->cache->put($cache_key, $isAvailable, $cache_expiry);
 
-				$avail = new \stdClass();
-				$avail->domain = $domain;
-				$avail->available = $avail ? 1 : 0;
-				return $avail;
+				$result = new \stdClass();
+				$result->domain = $domain;
+				$result->available = $isAvailable ? 1 : 0;
+				return $result;
 			});
 
 			$cached = $cached->merge($available->values());
