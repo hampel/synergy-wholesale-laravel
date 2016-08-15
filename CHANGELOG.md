@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+1.3.1 (2016-08-15)
+------------------
+
+* bugfix in CachingSynergyWholesale::bulkCheckDomain
+
 1.3.0 (2016-08-15)
 ------------------
 
