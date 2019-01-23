@@ -3,7 +3,7 @@ Synergy Wholesale API Wrapper for Laravel
 
 A Synergy Wholesale API wrapper for Laravel 5.x
 
-By [Simon Hampel](http://hampelgroup.com/).
+By [Simon Hampel](mailto:simon@hampelgroup.com).
 
 This package provides a simple Laravel service provider and facade for our base Synergy Wholesale API wrapper package
 [hampel/linode](https://bitbucket.org/hampel/synergy-wholesale) - please refer to the documentation about that
@@ -19,7 +19,7 @@ Require the package via Composer in your `composer.json`
     :::json
     {
         "require": {
-            "hampel/synergy-wholesale-laravel": "~1.0"
+            "hampel/synergy-wholesale-laravel": "~1.3"
         }
     }
 
