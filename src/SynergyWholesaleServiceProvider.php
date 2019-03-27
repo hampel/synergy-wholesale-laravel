@@ -41,6 +41,10 @@ class SynergyWholesaleServiceProvider extends ServiceProvider {
 
 	protected function defineConfiguration()
 	{
+		$this->publishes([
+			__DIR__ . '/config/synergy-wholesale.php' => config_path('synergy-wholesale.php'),
+		], 'config');
+
 		$this->mergeConfigFrom(
 			__DIR__ . '/config/synergy-wholesale.php', 'synergy-wholesale'
 		);
