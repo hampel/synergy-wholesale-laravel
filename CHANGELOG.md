@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+1.6.0 (2019-03-28)
+------------------
+
+* publish the config in the service provider
+* add support for Laravel v5.8
+* change all the default expiry times to seconds in line with Laravel 5.8 changes
+
 1.5.0 (2019-01-23)
 ------------------
 
