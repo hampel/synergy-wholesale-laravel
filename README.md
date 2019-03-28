@@ -14,12 +14,15 @@ Installation
 
 The recommended way of installing the Synergy Wholesale package is through [Composer](http://getcomposer.org):
 
-Require the package via Composer in your `composer.json`
+	:::bash
+	composer require "hampel/synergy-wholesale-laravel"
+
+Or manually define it in your `composer.json`
 
     :::json
     {
         "require": {
-            "hampel/synergy-wholesale-laravel": "~1.3"
+            "hampel/synergy-wholesale-laravel": "~1.5"
         }
     }
 
@@ -29,28 +32,6 @@ Run Composer to update the new requirement.
     $ composer update
 
 The package is built to work with the Laravel 5 Framework.
-
-Open your Laravel config file `app/config/app.php` and add the service provider in the `$providers` array:
-
-    :::php
-    'providers' => array(
-
-        ...
-
-        'SynergyWholesale\SynergyWholesaleServiceProvider'
-
-    ),
-
-You may also optionally add an alias entry to the `$aliases` array in the same file for the SynergyWholesale facade:
-
-	:::php
-    "aliases" => array(
-
-    	...
-
-    	'SynergyWholesale'			  => 'SynergyWholesale\Facades\SynergyWholesale',
-
-    ),
 
 Finally, to utilise the SynergyWholesale API, you must generate an API key using the Synergy Wholesale control panel 
 (which involves adding you web server's IP address to the whitelist) and then specify that key and your reseller ID
