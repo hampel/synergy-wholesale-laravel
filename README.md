@@ -41,6 +41,15 @@ in your `.env` file:
     SYNERGY_WHOLESALE_API_KEY=your_synergy_wholesale_api_key
     SYNERGY_WHOLESALE_RESELLER_ID=your_synergy_wholesale_reseller_id
 
+Upgrading
+---------
+
+__Upgrading to v1.6 (Laravel v5.8)__
+
+In line with changes made in Laravel v5.8, cache expiry times are now specified in seconds rather than minutes. Be sure
+to adjust the value of all cache entries in the config`synergy-wholesale.cache.*.expiry` to suit, if you have 
+over-ridden the defaults.
+
 Usage
 -----
 
