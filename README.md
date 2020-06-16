@@ -1,7 +1,7 @@
 Synergy Wholesale API Wrapper for Laravel
 =========================================
 
-A Synergy Wholesale API wrapper for Laravel 5.x and 6.x
+A Synergy Wholesale API wrapper for Laravel 5.x | 6.x | 7.x
 
 By [Simon Hampel](https://twitter.com/SimonHampel).
 
@@ -30,8 +30,6 @@ Run Composer to update the new requirement.
 
     :::bash
     $ composer update
-
-The package is built to work with the Laravel 5 Framework.
 
 Finally, to utilise the SynergyWholesale API, you must generate an API key using the Synergy Wholesale control panel 
 (which involves adding you web server's IP address to the whitelist) and then specify that key and your reseller ID
