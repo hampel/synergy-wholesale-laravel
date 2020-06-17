@@ -22,7 +22,7 @@ Or manually define it in your `composer.json`
     :::json
     {
         "require": {
-            "hampel/synergy-wholesale-laravel": "~1.6"
+            "hampel/synergy-wholesale-laravel": "^1.6"
         }
     }
 
