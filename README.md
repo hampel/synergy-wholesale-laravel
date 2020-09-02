@@ -1,6 +1,11 @@
 Synergy Wholesale API Wrapper for Laravel
 =========================================
 
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/hampel/synergy-wholesale-laravel.svg?style=flat-square)](https://packagist.org/packages/hampel/synergy-wholesale-laravel)
+[![Total Downloads](https://img.shields.io/packagist/dt/hampel/synergy-wholesale-laravel.svg?style=flat-square)](https://packagist.org/packages/hampel/synergy-wholesale-laravel)
+[![Open Issues](https://img.shields.io/bitbucket/issues/hampel/synergy-wholesale-laravel.svg?style=flat-square)](https://bitbucket.org/hampel/synergy-wholesale-laravel/issues)
+[![License](https://img.shields.io/packagist/l/hampel/synergy-wholesale-laravel.svg?style=flat-square)](https://packagist.org/packages/hampel/synergy-wholesale-laravel)
+
 A Synergy Wholesale API wrapper for Laravel 5.x | 6.x | 7.x
 
 By [Simon Hampel](https://twitter.com/SimonHampel).
