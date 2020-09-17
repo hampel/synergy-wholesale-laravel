@@ -23,8 +23,8 @@
 		"MIT"
 	],
     "require": {
-        "illuminate/support": "5.8.*|6.*|7.*",
-		"hampel/synergy-wholesale": "~1.4",
+        "illuminate/support": "5.8.*|^6.0|^7.0|^8.0",
+		"hampel/synergy-wholesale": "^1.0",
 		"php": ">=5.5.9"
     },
     "autoload": {
