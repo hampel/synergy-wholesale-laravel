@@ -6,7 +6,7 @@ Synergy Wholesale API Wrapper for Laravel
 [![Open Issues](https://img.shields.io/bitbucket/issues/hampel/synergy-wholesale-laravel.svg?style=flat-square)](https://bitbucket.org/hampel/synergy-wholesale-laravel/issues)
 [![License](https://img.shields.io/packagist/l/hampel/synergy-wholesale-laravel.svg?style=flat-square)](https://packagist.org/packages/hampel/synergy-wholesale-laravel)
 
-A Synergy Wholesale API wrapper for Laravel 5.x | 6.x | 7.x | 8.x | 9.x
+A Synergy Wholesale API wrapper for Laravel 5.x | 6.x | 7.x | 8.x | 9.x | 10.x
 
 By [Simon Hampel](https://twitter.com/SimonHampel).
 
@@ -37,7 +37,7 @@ Run Composer to update the new requirement.
     $ composer update
 
 Finally, to utilise the SynergyWholesale API, you must generate an API key using the Synergy Wholesale control panel 
-(which involves adding you web server's IP address to the whitelist) and then specify that key and your reseller ID
+(which involves adding your web server's IP address to the whitelist) and then specify that key and your reseller ID
 in your `.env` file:
 
     :::bash
