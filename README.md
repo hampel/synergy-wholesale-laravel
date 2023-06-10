@@ -43,21 +43,24 @@ Usage
 
 Use Laravel's App facade to gain access to the service provider in your code:
 
-    :::php
-    use SynergyWholesale\Commands\CheckDomainCommand;
+```php
+use SynergyWholesale\Commands\CheckDomainCommand;
 
-    $sw = App::make('SynergyWholesale\SynergyWholesale');
-    $available = $sw->execute(new CheckDomainCommand(new Domain('example.com')));
+$sw = App::make('SynergyWholesale\SynergyWholesale');
+$available = $sw->execute(new CheckDomainCommand(new Domain('example.com')));
+```
 
 ... or chain them:
 
-    :::php
-    $available = App::make('SynergyWholesale\SynergyWholesale')->execute(new CheckDomainCommand(new Domain('example.com')));
+```php
+$available = App::make('SynergyWholesale\SynergyWholesale')->execute(new CheckDomainCommand(new Domain('example.com')));
+```
 
 ... or just use the Facade instead:
 
-    :::php
-    $available = SynergyWholesale::execute(new CheckDomainCommand(new Domain('example.com')));
+```php
+$available = SynergyWholesale::execute(new CheckDomainCommand(new Domain('example.com')));
+```
 
 Refer to the usage examples and code in the
 [Synergy Wholesale API Wrapper](https://github.com/hampel/synergy-wholesale) repository for more details about how
