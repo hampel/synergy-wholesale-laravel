@@ -3,7 +3,7 @@ Synergy Wholesale API Wrapper for Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/hampel/synergy-wholesale-laravel.svg?style=flat-square)](https://packagist.org/packages/hampel/synergy-wholesale-laravel)
 [![Total Downloads](https://img.shields.io/packagist/dt/hampel/synergy-wholesale-laravel.svg?style=flat-square)](https://packagist.org/packages/hampel/synergy-wholesale-laravel)
-[![Open Issues](https://img.shields.io/bitbucket/issues/hampel/synergy-wholesale-laravel.svg?style=flat-square)](https://bitbucket.org/hampel/synergy-wholesale-laravel/issues)
+[![Open Issues](https://img.shields.io/github/issues-raw/hampel/synergy-wholesale-laravel.svg?style=flat-square)](https://github.com/hampel/synergy-wholesale-laravel/issues)
 [![License](https://img.shields.io/packagist/l/hampel/synergy-wholesale-laravel.svg?style=flat-square)](https://packagist.org/packages/hampel/synergy-wholesale-laravel)
 
 Synergy Wholesale API wrapper using SoapClient and packaged as a Laravel service provider
@@ -11,7 +11,7 @@ Synergy Wholesale API wrapper using SoapClient and packaged as a Laravel service
 By [Simon Hampel](https://twitter.com/SimonHampel).
 
 This package provides a simple Laravel service provider and facade for our base Synergy Wholesale API wrapper package
-[hampel/linode](https://bitbucket.org/hampel/synergy-wholesale) - please refer to the documentation about that
+[hampel/synergy-wholesale](https://github.com/hampel/synergy-wholesale) - please refer to the documentation about that
 package for instructions on how to use this API wrapper
 
 Installation
@@ -75,5 +75,5 @@ Use Laravel's App facade to gain access to the service provider in your code:
     $available = SynergyWholesale::execute(new CheckDomainCommand(new Domain('example.com')));
 
 Refer to the usage examples and code in the
-[Synergy Wholesale API Wrapper](https://bitbucket.org/hampel/synergy-wholesale) repository for more details about how
+[Synergy Wholesale API Wrapper](https://github.com/hampel/synergy-wholesale) repository for more details about how
 to use the library.

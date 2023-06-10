@@ -1,15 +1,15 @@
 {
     "name": "hampel/synergy-wholesale-laravel",
-	"homepage": "https://bitbucket.org/hampel/synergy-wholesale-laravel",
     "description": "Synergy Wholesale API wrapper using SoapClient and packaged as a Laravel service provider",
+	"homepage": "https://github.com/hampel/synergy-wholesale-laravel",
 	"authors": [{
 		"name": "Simon Hampel",
 		"email": "simon@hampelgroup.com",
 		"role": "Developer"
 	}],
 	"support": {
-		"issues": "https://bitbucket.org/hampel/synergy-wholesale-laravel/issues",
-		"source": "https://bitbucket.org/hampel/synergy-wholesale-laravel/src"
+		"issues": "https://github.com/hampel/synergy-wholesale-laravel/issues",
+		"source": "https://github.com/hampel/synergy-wholesale-laravel"
 	},
 	"keywords": [
 		"Synergy Wholesale",
