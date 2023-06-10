@@ -1,7 +1,7 @@
 {
     "name": "hampel/synergy-wholesale-laravel",
-    "description": "A Laravel service provider for accessing Synergy Wholesale via PHP",
 	"homepage": "https://bitbucket.org/hampel/synergy-wholesale-laravel",
+    "description": "Synergy Wholesale API wrapper using SoapClient and packaged as a Laravel service provider",
 	"authors": [{
 		"name": "Simon Hampel",
 		"email": "simon@hampelgroup.com",
