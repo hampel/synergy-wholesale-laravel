@@ -17,32 +17,17 @@ package for instructions on how to use this API wrapper
 Installation
 ------------
 
-The recommended way of installing the Synergy Wholesale package is through [Composer](http://getcomposer.org):
+To install using composer, run the following command:
 
-	:::bash
-	composer require "hampel/synergy-wholesale-laravel"
+`composer require hampel/synergy-wholesale-laravel`
 
-Or manually define it in your `composer.json`
+You must generate an API key using the Synergy Wholesale control panel, which involves adding your web server's IP 
+address to the whitelist - and then specify that key and your reseller ID in your `.env` file:
 
-    :::json
-    {
-        "require": {
-            "hampel/synergy-wholesale-laravel": "^1.6"
-        }
-    }
-
-Run Composer to update the new requirement.
-
-    :::bash
-    $ composer update
-
-Finally, to utilise the SynergyWholesale API, you must generate an API key using the Synergy Wholesale control panel 
-(which involves adding your web server's IP address to the whitelist) and then specify that key and your reseller ID
-in your `.env` file:
-
-    :::bash
-    SYNERGY_WHOLESALE_API_KEY=your_synergy_wholesale_api_key
-    SYNERGY_WHOLESALE_RESELLER_ID=your_synergy_wholesale_reseller_id
+```
+SYNERGY_WHOLESALE_API_KEY=your_synergy_wholesale_api_key
+SYNERGY_WHOLESALE_RESELLER_ID=your_synergy_wholesale_reseller_id
+```
 
 Upgrading
 ---------
