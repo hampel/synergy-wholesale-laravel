@@ -8,7 +8,7 @@ Synergy Wholesale API Wrapper for Laravel
 
 Synergy Wholesale API wrapper using SoapClient and packaged as a Laravel service provider
 
-By [Simon Hampel](https://twitter.com/SimonHampel).
+By [Simon Hampel](mailto:simon@hampelgroup.com)
 
 This package provides a simple Laravel service provider and facade for our base Synergy Wholesale API wrapper package
 [hampel/synergy-wholesale](https://github.com/hampel/synergy-wholesale) - please refer to the documentation about that
