@@ -30,10 +30,6 @@ vendor/bin/phpunit tests/ClientResolutionTest.php        # one file
 vendor/bin/phpunit --filter the_facade_resolves          # one test
 ```
 
-**Core v2 is not published yet**, so `composer install` cannot resolve `hampel/synergy-wholesale`
-from Packagist and CI will stay red until it is tagged and pushed. Local installs need a path
-repository — `CLAUDE.local.md` has the two lines that do it, and it must not be committed.
-
 ## Architecture
 
 The whole package is one binding, and the shape of it is the only real decision here:
