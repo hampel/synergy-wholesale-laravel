@@ -1,0 +1,19 @@
+# Line endings.
+#
+# This repository is developed in WSL but committed from SourceTree on Windows,
+# reaching the working copy over \\wsl$\. Without this, Git for Windows rewrites
+# every file to CRLF and the result is a diff touching every file in the tree
+# with no content change in any of them. Forcing LF in the working tree as well
+# as the index stops that recurring.
+* text=auto eol=lf
+
+# Keep development-only files out of the distributed archive.
+/.editorconfig  export-ignore
+/.gitattributes export-ignore
+/.github        export-ignore
+/.gitignore     export-ignore
+/CLAUDE.md      export-ignore
+/phpstan.neon   export-ignore
+/phpunit.xml    export-ignore
+/pint.json      export-ignore
+/tests          export-ignore
