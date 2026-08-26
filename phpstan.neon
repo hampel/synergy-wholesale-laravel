@@ -1,0 +1,17 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    level: 10
+
+    paths:
+        - src
+        - tests
+
+    # Analyse against every PHP version the package claims to support, in one run. This
+    # covers the PHP axis of the support matrix without running it: PHPStan knows which
+    # functions exist in which version and what changed when. Keep in step with the
+    # "php" constraint in composer.json.
+    phpVersion:
+        min: 80300
+        max: 80500

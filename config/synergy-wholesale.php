@@ -1,16 +1,18 @@
 <?php
-/**
- * Configuration for Synergy Wholesale
- */
 
-return array(
+declare(strict_types=1);
+
+return [
 
     /*
     |--------------------------------------------------------------------------
     | Synergy Wholesale API Key
     |--------------------------------------------------------------------------
     |
-    | Specify the API Key for your Synergy Wholesale account
+    | Generated in the Synergy Wholesale control panel. The API authorises by IP
+    | address as well as by key, so the address of every machine that calls it has
+    | to be on the allowlist there -- a correct key from an unlisted address fails
+    | with ERR_RESELLER_NOT_AUTHORISED, which reads like a bad key.
     |
     */
 
@@ -21,68 +23,10 @@ return array(
     | Synergy Wholesale Reseller ID
     |--------------------------------------------------------------------------
     |
-    | Specify the Reseller ID for your Synergy Wholesale account
-    |
-    | NOTE: as of Laravel 5.8, all expiry times should be considered to be in seconds rather than minutes
+    | The reseller account the API key belongs to.
     |
     */
 
     'reseller_id' => env('SYNERGY_WHOLESALE_RESELLER_ID', ''),
 
-	'cache' => [
-		'balanceQuery' => [
-			'key' => 'sw.balancequery',
-		],
-
-		'bulkCheckDomain' => [
-			'key' => 'sw.bulkcheckdomain',
-			'expiry' => 60*60*24
-		],
-
-		'businessCheckRegistration' => [
-			'key' => 'sw.businesscheckregistration',
-			'expiry' => 60*60*24*7
-		],
-
-		'canRenewDomain' => [
-			'key' => 'sw.canrenewdomain',
-			'expiry' => 60*60*24
-		],
-
-		'checkDomain' => [
-			'key' => 'sw.checkdomain',
-			'expiry' => 60*60*24
-		],
-
-		'domainInfo' => [
-			'key' => 'sw.domaininfo',
-			'expiry' => 60*60*24
-		],
-
-		'getDomainExtensionOptions' => [
-			'key' => 'sw.getdomainextensionoptions',
-			'expiry' => 60*60*24*7
-		],
-
-		'getDomainPricing' => [
-			'key' => 'sw.domainpricing',
-			'expiry' => 60*60*24
-		],
-
-		'getTransferredAwayDomains' => [
-			'key' => 'sw.gettransferredawaydomains',
-			'expiry' => 60*60*24
-		],
-
-		'getUSNexusData' => [
-			'key' => 'sw.getusnexusdata',
-			'expiry' => 60*60*24
-		],
-
-		'listContacts' => [
-			'key' => 'sw.listcontacts',
-			'expiry' => 60*60*24
-		],
-
-	],
-);
+];

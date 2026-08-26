@@ -1,53 +1,77 @@
-<?php namespace SynergyWholesale;
+<?php
 
-use SoapClient;
+declare(strict_types=1);
+
+namespace Hampel\SynergyWholesale\Laravel;
+
+use Hampel\SynergyWholesale\Laravel\Exception\MissingCredentials;
+use Hampel\SynergyWholesale\SynergyWholesale;
+use Hampel\SynergyWholesale\Transport\SoapTransport;
+use Hampel\SynergyWholesale\Transport\Transport;
+use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Support\ServiceProvider;
+use Psr\Log\LoggerInterface;
 
-class SynergyWholesaleServiceProvider extends ServiceProvider {
+/**
+ * Wires the Synergy Wholesale client into the container.
+ *
+ * Everything this package knows about the API is in that one binding: the client itself
+ * is generated from the WSDL and lives in hampel/synergy-wholesale.
+ */
+final class SynergyWholesaleServiceProvider extends ServiceProvider
+{
+    public function register(): void
+    {
+        $this->mergeConfigFrom(__DIR__.'/../config/synergy-wholesale.php', 'synergy-wholesale');
 
-	/**
-	 * Register the service provider.
-	 *
-	 * @return void
-	 */
-	public function register()
-	{
-        $this->mergeConfigFrom(
-            __DIR__ . '/../config/synergy-wholesale.php', 'synergy-wholesale'
-        );
+        // Bound separately, and by interface, because Transport is the client's only
+        // extension point: SynergyWholesale is final and its API classes are generated,
+        // so caching, retries, rate limiting and a fixture in an application's own tests
+        // all attach here. Rebind or decorate this and the client below picks it up.
+        $this->app->singleton(Transport::class, static fn (): Transport => SoapTransport::make());
 
-		$this->app->bind(ResponseGenerator::class, BasicResponseGenerator::class);
-	}
+        $this->app->singleton(SynergyWholesale::class, function (): SynergyWholesale {
+            $config = $this->app->make(Config::class);
 
-	/**
-	 * Bootstrap the application events.
-	 *
-	 * @return void
-	 */
-	public function boot()
-	{
-		$this->defineConfiguration();
+            // with() rather than make(): make() would build a SoapTransport of its own and
+            // seal it in, defeating the binding above.
+            return SynergyWholesale::with(
+                $this->app->make(Transport::class),
+                $this->credential($config, 'reseller_id', 'SYNERGY_WHOLESALE_RESELLER_ID'),
+                $this->credential($config, 'api_key', 'SYNERGY_WHOLESALE_API_KEY'),
+                $this->app->make(LoggerInterface::class),
+            );
+        });
+    }
 
-		$this->app->singleton(SynergyWholesale::class, function()
-		{
-			$reseller_id = $this->app['config']->get('synergy-wholesale.reseller_id');
-			$api_key = $this->app['config']->get('synergy-wholesale.api_key');
+    public function boot(): void
+    {
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__.'/../config/synergy-wholesale.php' => config_path('synergy-wholesale.php'),
+            ], 'synergy-wholesale-config');
+        }
+    }
 
-			$client = new SoapClient(null, array('location' => SynergyWholesale::WSDL_URL, 'uri' => ''));
-			$responseGenerator = $this->app->make(ResponseGenerator::class);
-			$logger = $this->app['log'];
-			$cache = $this->app['cache.store'];
+    /**
+     * Reads one credential, refusing to build a client without it.
+     *
+     * An unset credential otherwise reaches the API as an empty string and comes back as
+     * ERR_RESELLER_NOT_AUTHORISED -- which is also what a correct key from an IP that is
+     * not on the allowlist returns, so the two failures are indistinguishable at the point
+     * where you can least afford to confuse them. Failing here separates them.
+     */
+    private function credential(Config $config, string $key, string $env): string
+    {
+        $value = $config->get("synergy-wholesale.{$key}");
 
-			return new CachingSynergyWholesale($client, $responseGenerator, $logger, $cache, $reseller_id, $api_key);
-		});
+        if (! is_string($value) || $value === '') {
+            throw new MissingCredentials(
+                "Synergy Wholesale is not configured: set {$env} in the environment, "
+                ."or synergy-wholesale.{$key} in the published config."
+            );
+        }
 
-	}
-
-	protected function defineConfiguration()
-	{
-		$this->publishes([
-            __DIR__ . '/../config/synergy-wholesale.php' => config_path('synergy-wholesale.php'),
-		], 'config');
-	}
-
+        return $value;
+    }
 }
