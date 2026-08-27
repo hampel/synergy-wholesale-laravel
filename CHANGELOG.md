@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-2.0.0 (unreleased)
+2.0.0 (2026-08-27)
 ------------------
 
 A complete rewrite for `hampel/synergy-wholesale` v2. No API is shared with 1.x — the README has
