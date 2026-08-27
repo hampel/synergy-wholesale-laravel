@@ -47,8 +47,13 @@ final class SynergyWholesaleServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if ($this->app->runningInConsole()) {
+            // configPath() rather than the config_path() helper: the helper is defined by
+            // illuminate/foundation, which this package does not require and should not.
+            // Requiring only illuminate/support and illuminate/contracts is a claim that
+            // the package needs no full application, and Testbench -- which boots one --
+            // would never catch the helper contradicting it.
             $this->publishes([
-                __DIR__.'/../config/synergy-wholesale.php' => config_path('synergy-wholesale.php'),
+                __DIR__.'/../config/synergy-wholesale.php' => $this->app->configPath('synergy-wholesale.php'),
             ], 'synergy-wholesale-config');
         }
     }
