@@ -4,43 +4,27 @@ CHANGELOG
 2.0.0 (unreleased)
 ------------------
 
-A complete rewrite for `hampel/synergy-wholesale` v2, which shares no API with 1.x. Nothing from
-the 1.x version of this package survives — see the upgrade table in the README.
+A complete rewrite for `hampel/synergy-wholesale` v2. No API is shared with 1.x — the README has
+an upgrade table.
 
-### What the package is now
-
-* Namespaced `Hampel\SynergyWholesale\Laravel\`, so it no longer shares a root namespace with the
-  core package.
-* The container binds `Hampel\SynergyWholesale\SynergyWholesale` as a singleton, built with
-  `with()` over a separately bound `Transport`. Operations are reached through groups:
+* Namespace is now `Hampel\SynergyWholesale\Laravel\`.
+* The container binds `Hampel\SynergyWholesale\SynergyWholesale` as a singleton, and
+  `Hampel\SynergyWholesale\Transport\Transport` separately. Decorating the transport binding
+  applies to the registered client.
+* Operations are reached through groups:
   `SynergyWholesale::domains()->checkDomain(domainName: 'example.com')`.
-* The facade carries `@method` annotations for all ten operation groups, so calls through it are
-  typed to both the IDE and PHPStan.
-* Resolving a client without a reseller id or API key throws `MissingCredentials` rather than
-  letting an empty credential reach the API, where it is indistinguishable from calling from an
-  address that is not on the allowlist.
-* Config publishes under `--tag=synergy-wholesale-config`, and holds only `reseller_id` and
-  `api_key`.
-
-### Caching is gone
-
-* `CachingSynergyWholesale` is deleted, along with the whole `cache` config block and the `$fresh`
-  parameter that sat on the public signature of every read.
-* It could not survive v2 in any case: `SynergyWholesale` is final and holds no operation methods
-  to override, and the design needed one override per cached operation — workable at 36 operations,
-  not at 138, where an operation with no override silently bypassed the cache.
-* Caching now belongs in a `Transport` decorator, which needs no per-operation code and cannot
-  fabricate a response object — which `bulkCheckDomain()` did, hand-building a synthetic `stdClass`
-  with `status = "OK"` to satisfy a constructor.
-
-### Supported versions, and the tooling to back them
-
-* PHP 8.3 or later, Laravel 12 or 13. Was PHP 7.3 and Laravel 8 to 10, all out of support.
-* Adds the tests, static analysis and CI the package never had: PHPUnit through Orchestra
-  Testbench, PHPStan level 10 with Larastan across PHP 8.3 to 8.5, Pint, and a CI matrix at the
-  corners of the supported range.
-* Forces LF line endings via `.gitattributes`, and keeps development-only files out of the
-  distributed archive.
+* The facade declares `@method` annotations for all ten operation groups.
+* Resolving a client without a reseller id or API key throws `MissingCredentials`, which
+  implements `Hampel\SynergyWholesale\Exception\SynergyWholesaleException`.
+* Removed `CachingSynergyWholesale`, the `cache` config block, and the `$fresh` parameter on
+  every read method. Nothing is cached.
+* Config holds `reseller_id` and `api_key`, and publishes under `--tag=synergy-wholesale-config`
+  in place of `--tag=config`.
+* Minimum PHP version is now 8.3, and Laravel 12 or 13 is required.
+* Added a test suite on Orchestra Testbench, PHPStan level 10 with Larastan, Pint, and CI across
+  the supported PHP and Laravel range.
+* Line endings are enforced as LF, and development-only files are excluded from the distributed
+  archive.
 
 1.10.0 (2023-06-05)
 ------------------
