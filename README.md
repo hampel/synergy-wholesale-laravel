@@ -1,6 +1,7 @@
 Synergy Wholesale for Laravel
 =============================
 
+[![Tests](https://github.com/hampel/synergy-wholesale-laravel/actions/workflows/tests.yml/badge.svg)](https://github.com/hampel/synergy-wholesale-laravel/actions/workflows/tests.yml)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/hampel/synergy-wholesale-laravel.svg?style=flat-square)](https://packagist.org/packages/hampel/synergy-wholesale-laravel)
 [![Total Downloads](https://img.shields.io/packagist/dt/hampel/synergy-wholesale-laravel.svg?style=flat-square)](https://packagist.org/packages/hampel/synergy-wholesale-laravel)
 [![Open Issues](https://img.shields.io/github/issues-raw/hampel/synergy-wholesale-laravel.svg?style=flat-square)](https://github.com/hampel/synergy-wholesale-laravel/issues)
