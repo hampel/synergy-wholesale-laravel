@@ -98,6 +98,36 @@ jobs:
           -c .github/phpstan-nodev.neon
           --autoload-file=vendor/autoload.php --no-progress
 
+      # The analysis above cannot see a dependency that arrives transitively: --no-dev
+      # removes require-dev and nothing else, so every transitive package is still
+      # installed and every symbol still resolves. config_path() went undeclared here for
+      # exactly that reason, with this job green - illuminate/foundation arrives under
+      # illuminate/support and always will. composer-require-checker maps each symbol back
+      # to the package that supplies it and fails on anything outside "require". It also
+      # names an undeclared ext-*, which nothing else catches.
+      #
+      # It is a dev tool the package does not depend on, so like PHPStan it comes from
+      # outside. Run it against the --no-dev tree above: that is exactly the closure a
+      # consumer installs, and it is what the checker should be judging.
+      #
+      # The whitelist is not a way to silence findings. It holds three Illuminate symbols
+      # that can never resolve, because laravel/framework "replace"s every illuminate/*
+      # component - so Composer installs the framework and there is no vendor/illuminate/
+      # for the checker to attribute them to. Verified on the --no-dev tree: vendor/laravel
+      # exists, vendor/illuminate does not. A NEW Illuminate symbol appearing here is a
+      # prompt to check its component is in "require", not to extend the list on sight.
+      #
+      # It reports symbols that are used, not merely imported: an unused `use` is
+      # invisible to it. Pint and PHPStan are what catch that.
+      - run: |
+          mkdir -p /tmp/crc
+          composer -d /tmp/crc require maglnet/composer-require-checker --no-progress
+
+      - run: >
+          /tmp/crc/vendor/bin/composer-require-checker check
+          --config-file=.github/composer-require-checker.json
+          composer.json
+
   lint:
     name: Lint
     runs-on: ubuntu-latest
