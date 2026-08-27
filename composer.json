@@ -26,7 +26,9 @@
     "require": {
         "php": ">=8.3",
         "hampel/synergy-wholesale": "^2.0",
-        "illuminate/support": "^12.0|^13.0"
+        "illuminate/contracts": "^12.0|^13.0",
+        "illuminate/support": "^12.0|^13.0",
+        "psr/log": "^1.0|^2.0|^3.0"
     },
     "require-dev": {
         "larastan/larastan": "^3.0",
