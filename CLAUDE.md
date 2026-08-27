@@ -82,7 +82,7 @@ have gone over the wire, including that configured credentials reached it.
 There is no `hampel/rig` harness and there should not be one: what this package owns *is* container
 and configuration wiring, which Testbench can see. The undeclared-dependency hazard rig exists to
 catch is covered by the `Declared dependencies` CI job, which analyses `src/` with the dev
-dependencies uninstalled. See `~/packages/CLAUDE.md`.
+dependencies uninstalled.
 
 ## Conventions
 
@@ -91,15 +91,16 @@ PSR-12 via Pint, PHPStan level 10 with Larastan, `declare(strict_types=1)` every
 snake_case method names. This matches the core package, which is the reference for anything not
 settled here.
 
-Version support is policy, not preference: PHP `>=8.3` and `illuminate/support ^12.0|^13.0`, per
-`/srv/www/version-support.html`. CI tests the three corners of that range — `8.3`/`^12.0` with
-`--prefer-lowest`, `8.3`/`^13.0`, `8.5`/`^13.0` — with Testbench pinned alongside each Laravel major
-because its majors track Laravel's. Read the policy before widening or narrowing anything.
+Version support is policy, not preference: PHP `>=8.3` and `illuminate/support ^12.0|^13.0`. The
+package supports every PHP version with upstream security support, and the current Laravel major
+plus one back. CI tests the three corners of that range — `8.3`/`^12.0` with `--prefer-lowest`,
+`8.3`/`^13.0`, `8.5`/`^13.0` — with Testbench pinned alongside each Laravel major because its
+majors track Laravel's. Widening or narrowing a constraint is a policy decision, not a
+convenience: raise it with the maintainer first.
 
 ## Where to look
 
-- `~/packages/synergy-wholesale/CLAUDE.md` — core architecture, the transport seam, the WSDL traps.
-- `~/packages/sparkpost-laravel` — the other Laravel package here, and the source of this one's CI.
-- `~/cli/sw-cli` — the other consumer, still on 1.x and in worse shape: it declares
-  `"name": "laravel/laravel"` and carries a full web skeleton for a dozen CLI commands. Its own
-  piece of work, possibly a rebuild as a Laravel Zero app. It was the only caller of `$fresh`.
+- [`hampel/synergy-wholesale`](https://github.com/hampel/synergy-wholesale) — the client itself.
+  Its `CLAUDE.md` covers the architecture, the transport seam and the WSDL traps behind the
+  generated code, and is where any question about what an operation does belongs.
+- `CHANGELOG.md` — what 2.0 changed and why 1.x worked the way it did.

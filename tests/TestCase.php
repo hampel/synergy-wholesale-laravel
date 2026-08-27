@@ -11,8 +11,8 @@ use Orchestra\Testbench\TestCase as BaseTestCase;
 
 /**
  * Testbench boots a minimal Laravel application from inside this package, so the Laravel
- * version under test comes from Composer resolution rather than from an installed
- * framework. See ~/packages/README.md - never install a framework to test a package.
+ * version under test comes from Composer resolution rather than from an installed framework.
+ * Never install a framework to test a package.
  */
 abstract class TestCase extends BaseTestCase
 {
