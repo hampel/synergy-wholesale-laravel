@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+2.0.1 (2026-08-27)
+------------------
+
+* The config file is published through `Illuminate\Contracts\Foundation\Application::configPath()`
+  rather than the `config_path()` helper, which is defined by `illuminate/foundation` — a package
+  this one does not require. The published path is unchanged.
+* Raised the `larastan/larastan` development requirement to `^3.4.2`, the first version that types
+  container resolution. Development only; nothing a consumer installs is affected.
+
 2.0.0 (2026-08-27)
 ------------------
 
