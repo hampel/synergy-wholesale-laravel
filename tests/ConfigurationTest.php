@@ -12,6 +12,7 @@ use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use PHPUnit\Framework\Attributes\Test;
+use ReflectionProperty;
 
 final class ConfigurationTest extends TestCase
 {
@@ -66,6 +67,9 @@ final class ConfigurationTest extends TestCase
         // provider's own registration during setUp is discarded, and phpunit.xml's
         // failOnDeprecation never sees it. Verified by probe: E_USER_DEPRECATED in
         // register() passes the suite when it fires during setUp, and fails it from here.
+        //
+        // That covers register() only. boot() is the same problem and needs its own test -
+        // see booting_the_provider_registers_the_config_to_publish below.
         $app = new Application(__DIR__.'/..');
         $app->instance('config', new ConfigRepository());
 
@@ -74,5 +78,59 @@ final class ConfigurationTest extends TestCase
         $this->assertTrue($app->bound(Transport::class));
         $this->assertTrue($app->bound(SynergyWholesale::class));
         $this->assertSame('', $app->make(Config::class)->get('synergy-wholesale.api_key'));
+    }
+
+    #[Test]
+    public function booting_the_provider_registers_the_config_to_publish(): void
+    {
+        // The other half of the test above, and not reached by it. Testbench boots the
+        // application inside parent::setUp(), before withoutDeprecationHandling() puts
+        // PHPUnit's error handler back - so boot() has always already run under Laravel's
+        // swallowing handler, and a deprecation raised by configPath() or publishes() on some
+        // future framework version would ship in silence. Probed: without this test, a
+        // deprecation in boot() exits 0 and prints OK; with it, exit 2.
+        //
+        // ServiceProvider::$publishes is static and Testbench has already filled it, so
+        // booting a second application overwrites the destination path that
+        // the_config_file_is_publishable_under_its_own_tag asserts on - and which of the two
+        // fails would depend on execution order. Hence the snapshot and the finally.
+        $publishes = new ReflectionProperty(ServiceProvider::class, 'publishes');
+        $groups = new ReflectionProperty(ServiceProvider::class, 'publishGroups');
+        $savedPublishes = $publishes->getValue();
+        $savedGroups = $groups->getValue();
+
+        try {
+            // Emptied, not just restored afterwards. Testbench's own boot registered an entry
+            // naming the SAME source path this one would, so against the filled statics the
+            // assertion below cannot tell whose registration it sees, and passes even when the
+            // provider under test registered nothing. Deleting publishes() from boot() does not
+            // reveal that, because Testbench's boot runs the same code; making only this
+            // application report runningInConsole() as false does.
+            $publishes->setValue(null, []);
+            $groups->setValue(null, []);
+
+            $app = new Application(__DIR__.'/..');
+            $app->instance('config', new ConfigRepository());
+
+            $provider = new SynergyWholesaleServiceProvider($app);
+            $provider->register();
+            $provider->boot();
+
+            // By source path rather than destination: the destination is this throwaway
+            // application's config directory, which says nothing about the package.
+            $this->assertSame(
+                [realpath(__DIR__.'/../config/synergy-wholesale.php')],
+                array_map(
+                    'realpath',
+                    array_keys(ServiceProvider::pathsToPublish(
+                        SynergyWholesaleServiceProvider::class,
+                        'synergy-wholesale-config',
+                    )),
+                ),
+            );
+        } finally {
+            $publishes->setValue(null, $savedPublishes);
+            $groups->setValue(null, $savedGroups);
+        }
     }
 }
