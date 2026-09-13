@@ -63,6 +63,11 @@ abstract class TestCase extends BaseTestCase
         // inert in any Testbench-based package. This throws on them instead, which is the
         // whole point of the flag: a library should hear about a deprecation before its
         // users do.
+        //
+        // Only from here on, though. parent::setUp() above has already registered and booted
+        // the provider under Laravel's handler, so neither method is covered by this line -
+        // ConfigurationTest calls both by hand against an application of its own for that
+        // reason.
         $this->withoutDeprecationHandling();
     }
 }
