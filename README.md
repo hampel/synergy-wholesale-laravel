@@ -1,5 +1,4 @@
-Synergy Wholesale for Laravel
-=============================
+# Synergy Wholesale API for Laravel
 
 [![Tests](https://github.com/hampel/synergy-wholesale-laravel/actions/workflows/tests.yml/badge.svg)](https://github.com/hampel/synergy-wholesale-laravel/actions/workflows/tests.yml)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/hampel/synergy-wholesale-laravel.svg?style=flat-square)](https://packagist.org/packages/hampel/synergy-wholesale-laravel)
@@ -17,17 +16,16 @@ By [Simon Hampel](mailto:simon@hampelgroup.com)
 Everything you can call, and every type it returns, is documented in that package. This one adds
 the container binding, a facade and a config file.
 
-Installation
-------------
+## Installation
 
-```
+```bash
 composer require hampel/synergy-wholesale-laravel
 ```
 
 Generate an API key in the Synergy Wholesale control panel and put it, with your reseller ID, in
 `.env`:
 
-```
+```ini
 SYNERGY_WHOLESALE_API_KEY=your_synergy_wholesale_api_key
 SYNERGY_WHOLESALE_RESELLER_ID=your_synergy_wholesale_reseller_id
 ```
@@ -40,12 +38,11 @@ which reads like a bad key.
 Publishing the config file is optional and only useful if you want to read the credentials from
 somewhere other than those two environment variables:
 
-```
+```bash
 php artisan vendor:publish --tag=synergy-wholesale-config
 ```
 
-Usage
------
+## Usage
 
 Operations are grouped, and the method name is the API operation name as published:
 
@@ -91,8 +88,7 @@ Nothing is cached by default. Prices, availability and domain details are all ca
 principle, but for how long is an application's decision rather than this package's, and a wrong
 answer about availability is expensive.
 
-Upgrading from 1.x
-------------------
+## Upgrading from 1.x
 
 Version 2 is a rewrite with no API in common with 1.x, and neither is `hampel/synergy-wholesale`
 itself — the `Command` and `Response` classes are gone, replaced by generated typed requests and
@@ -109,7 +105,6 @@ in your application:
 | `config('synergy-wholesale.cache.*')` | removed |
 | `--tag=config` | `--tag=synergy-wholesale-config` |
 
-Requirements
-------------
+## Requirements
 
 PHP 8.3 or later with `ext-soap`, and Laravel 12 or 13.
