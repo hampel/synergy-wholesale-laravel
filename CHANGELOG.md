@@ -1,6 +1,26 @@
 CHANGELOG
 =========
 
+2.1.0 (2026-09-14)
+------------------
+
+### Fixed
+
+* Requires `hampel/synergy-wholesale` `^2.1`, which redacts secrets from the debug log at any
+  depth. With 2.0.x, `listDomains` and `bulkDomainInfo` logged the EPP code of every domain in the
+  response, despite the README saying EPP codes were redacted.
+
+### Documentation
+
+* The README covers Laravel Zero: the service provider has to be listed in `config/app.php`, and
+  the client belongs in a command's `handle()` rather than its constructor, where resolving it
+  without credentials breaks `list` and `--help`.
+
+### Development
+
+* CI checks declared dependencies with `composer-require-checker`.
+* A test boots the service provider, so a deprecation raised in `boot()` fails the suite.
+
 2.0.1 (2026-08-27)
 ------------------
 
