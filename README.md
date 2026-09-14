@@ -111,7 +111,9 @@ so one `catch` covers the package.
 
 Every call is logged through the application's default logger — one `info` line per operation, and
 the request and response at `debug` with the API key, EPP auth codes, passwords and SSL private keys
-redacted at every level, including the per-domain entries of a `listDomains` response.
+redacted at every level, including the per-domain entries of a `listDomains` response. Everything
+else is logged in full, including registrant and contact names, email addresses, phone numbers and
+postal addresses.
 
 ### Caching, retries and other decoration
 
