@@ -81,8 +81,15 @@ have gone over the wire, including that configured credentials reached it.
 
 There is no `hampel/rig` harness and there should not be one: what this package owns *is* container
 and configuration wiring, which Testbench can see. The undeclared-dependency hazard rig exists to
-catch is covered by the `Declared dependencies` CI job, which analyses `src/` with the dev
-dependencies uninstalled.
+catch is covered by the `Declared dependencies` CI job, in two steps against a `--no-dev` install.
+PHPStan over `src/` finds a symbol that only `require-dev` supplied. **It cannot find one that is
+installed without being declared**: Composer satisfies `illuminate/support` with the whole of
+`laravel/framework`, so `config_path()` from the undeclared foundation component resolved, and went
+unnoticed with that step green. `composer-require-checker` follows, mapping each symbol to the
+package that supplies it. Its whitelist, `.github/composer-require-checker.json`, holds only
+`illuminate/*` symbols that can never resolve because `laravel/framework` replaces those components;
+a new entry means checking the component is in `require` first. The workflow's comments carry the
+detail.
 
 ## Conventions
 

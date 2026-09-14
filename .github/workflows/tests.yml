@@ -101,8 +101,9 @@ jobs:
       # The analysis above cannot see a dependency that arrives transitively: --no-dev
       # removes require-dev and nothing else, so every transitive package is still
       # installed and every symbol still resolves. config_path() went undeclared here for
-      # exactly that reason, with this job green - illuminate/foundation arrives under
-      # illuminate/support and always will. composer-require-checker maps each symbol back
+      # exactly that reason, with this job green - Composer satisfies illuminate/support
+      # with the whole of laravel/framework, which carries illuminate/foundation with it,
+      # and always will. composer-require-checker maps each symbol back
       # to the package that supplies it and fails on anything outside "require". It also
       # names an undeclared ext-*, which nothing else catches.
       #
