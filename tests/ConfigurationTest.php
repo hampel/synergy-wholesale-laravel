@@ -6,12 +6,15 @@ namespace Hampel\SynergyWholesale\Laravel\Tests;
 
 use Hampel\SynergyWholesale\Laravel\SynergyWholesaleServiceProvider;
 use Hampel\SynergyWholesale\SynergyWholesale;
+use Hampel\SynergyWholesale\Transport\FixtureTransport;
 use Hampel\SynergyWholesale\Transport\Transport;
 use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use PHPUnit\Framework\Attributes\Test;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use ReflectionProperty;
 
 final class ConfigurationTest extends TestCase
@@ -81,6 +84,43 @@ final class ConfigurationTest extends TestCase
     }
 
     #[Test]
+    public function a_transport_the_application_bound_first_is_kept(): void
+    {
+        // Laravel Zero runs no package discovery, and config/app.php lists the application's
+        // own provider above any package provider added after it - so an application that
+        // binds its own transport has usually done so before this provider registers. A
+        // full Laravel application registers discovered providers first, which is why this
+        // only shows up under Zero. extend() is unaffected by order; a replacement binding
+        // is not, and the client must still be built from the application's transport.
+        $app = $this->bareApplication();
+
+        $ours = new FixtureTransport([
+            'checkDomain' => FixtureTransport::response(['status' => 'AVAILABLE', 'available' => 1]),
+        ]);
+        $app->singleton(Transport::class, static fn (): Transport => $ours);
+
+        (new SynergyWholesaleServiceProvider($app))->register();
+
+        $this->assertSame($ours, $app->make(Transport::class));
+
+        $app->make(SynergyWholesale::class)->domains()->checkDomain('example.com');
+        $this->assertCount(1, $ours->calls);
+    }
+
+    #[Test]
+    public function a_client_the_application_bound_first_is_kept(): void
+    {
+        $app = $this->bareApplication();
+
+        $ours = SynergyWholesale::with(new FixtureTransport([]), 'reseller', 'key');
+        $app->singleton(SynergyWholesale::class, static fn (): SynergyWholesale => $ours);
+
+        (new SynergyWholesaleServiceProvider($app))->register();
+
+        $this->assertSame($ours, $app->make(SynergyWholesale::class));
+    }
+
+    #[Test]
     public function booting_the_provider_registers_the_config_to_publish(): void
     {
         // The other half of the test above, and not reached by it. Testbench boots the
@@ -132,5 +172,19 @@ final class ConfigurationTest extends TestCase
             $publishes->setValue(null, $savedPublishes);
             $groups->setValue(null, $savedGroups);
         }
+    }
+
+    /**
+     * An application Testbench has not touched, carrying only what the client needs to resolve.
+     */
+    private function bareApplication(): Application
+    {
+        $app = new Application(__DIR__.'/..');
+        $app->instance('config', new ConfigRepository([
+            'synergy-wholesale' => ['reseller_id' => 'reseller', 'api_key' => 'key'],
+        ]));
+        $app->instance(LoggerInterface::class, new NullLogger());
+
+        return $app;
     }
 }

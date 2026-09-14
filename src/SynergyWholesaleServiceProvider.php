@@ -28,9 +28,14 @@ final class SynergyWholesaleServiceProvider extends ServiceProvider
         // extension point: SynergyWholesale is final and its API classes are generated,
         // so caching, retries, rate limiting and a fixture in an application's own tests
         // all attach here. Rebind or decorate this and the client below picks it up.
-        $this->app->singleton(Transport::class, static fn (): Transport => SoapTransport::make());
+        //
+        // singletonIf() on both, so a binding the application made first is kept. Laravel
+        // Zero runs no package discovery and lists the application's own provider above any
+        // package provider added after it, so there an application's binding usually comes
+        // first - and singleton() would replace it without a word.
+        $this->app->singletonIf(Transport::class, static fn (): Transport => SoapTransport::make());
 
-        $this->app->singleton(SynergyWholesale::class, function (): SynergyWholesale {
+        $this->app->singletonIf(SynergyWholesale::class, function (): SynergyWholesale {
             $config = $this->app->make(Config::class);
 
             // with() rather than make(): make() would build a SoapTransport of its own and

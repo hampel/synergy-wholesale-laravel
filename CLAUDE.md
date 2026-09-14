@@ -35,9 +35,9 @@ vendor/bin/phpunit --filter the_facade_resolves          # one test
 The whole package is one binding, and the shape of it is the only real decision here:
 
 ```php
-$this->app->singleton(Transport::class, static fn (): Transport => SoapTransport::make());
+$this->app->singletonIf(Transport::class, static fn (): Transport => SoapTransport::make());
 
-$this->app->singleton(SynergyWholesale::class, function (): SynergyWholesale {
+$this->app->singletonIf(SynergyWholesale::class, function (): SynergyWholesale {
     return SynergyWholesale::with($this->app->make(Transport::class), $resellerId, $apiKey, $logger);
 });
 ```
@@ -48,6 +48,13 @@ client's only extension point — `SynergyWholesale` is final and its API classe
 caching, retries, rate limiting and an application's own test fixtures all attach by decorating
 that binding. `ClientResolutionTest::the_transport_binding_can_be_decorated()` is what stops that
 regressing.
+
+**Both are `singletonIf()`, not `singleton()`, so a binding the application made first is kept.**
+Laravel Zero runs no package discovery and lists the application's own provider above any package
+provider added after it, so an application's replacement transport or client is usually bound
+before this provider registers, and `singleton()` would replace it without a word. `extend()` is
+unaffected either way. The two `..._the_application_bound_first_is_kept` tests in
+`ConfigurationTest` fail against `singleton()`.
 
 Everything else follows from it:
 
