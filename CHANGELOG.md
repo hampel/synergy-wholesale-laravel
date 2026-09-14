@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 2.1.1 (2026-09-14)
+
+### Fixed
+
+* The service provider keeps a `Transport` or `SynergyWholesale` binding the application registered
+  before it. Under Laravel Zero, where the application's provider is listed first, the package's
+  binding replaced the application's.
+
+### Documentation
+
+* The README's Laravel Zero section covers publishing the config.
+
 ## 2.1.0 (2026-09-14)
 
 ### Fixed
