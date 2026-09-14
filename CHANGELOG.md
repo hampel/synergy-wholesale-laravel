@@ -1,8 +1,6 @@
-CHANGELOG
-=========
+# CHANGELOG
 
-2.1.0 (2026-09-14)
-------------------
+## 2.1.0 (2026-09-14)
 
 ### Fixed
 
@@ -21,8 +19,7 @@ CHANGELOG
 * CI checks declared dependencies with `composer-require-checker`.
 * A test boots the service provider, so a deprecation raised in `boot()` fails the suite.
 
-2.0.1 (2026-08-27)
-------------------
+## 2.0.1 (2026-08-27)
 
 * The config file is published through `Illuminate\Contracts\Foundation\Application::configPath()`
   rather than the `config_path()` helper, which is defined by `illuminate/foundation` — a package
@@ -30,8 +27,7 @@ CHANGELOG
 * Raised the `larastan/larastan` development requirement to `^3.4.2`, the first version that types
   container resolution. Development only; nothing a consumer installs is affected.
 
-2.0.0 (2026-08-27)
-------------------
+## 2.0.0 (2026-08-27)
 
 A complete rewrite for `hampel/synergy-wholesale` v2. No API is shared with 1.x — the README has
 an upgrade table.
@@ -55,77 +51,63 @@ an upgrade table.
 * Line endings are enforced as LF, and development-only files are excluded from the distributed
   archive.
 
-1.10.0 (2023-06-05)
-------------------
+## 1.10.0 (2023-06-05)
 
 * works with Laravel 10.x
 
-1.9.0 (2022-08-10)
-------------------
+## 1.9.0 (2022-08-10)
 
 * works with Laravel 9.x
 
-1.8.0 (2020-09-17)
-------------------
+## 1.8.0 (2020-09-17)
 
 * works with Laravel 8.x
 
-1.7.0 (2020-06-16)
-------------------
+## 1.7.0 (2020-06-16)
 
 * works with Laravel 7.x
 
-1.6.1 (2019-10-14)
-------------------
+## 1.6.1 (2019-10-14)
 
 * works with Laravel 6.x
 
-1.6.0 (2019-03-28)
-------------------
+## 1.6.0 (2019-03-28)
 
 * publish the config in the service provider
 * add support for Laravel v5.8
 * change all the default expiry times to seconds in line with Laravel 5.8 changes
 
-1.5.0 (2019-01-23)
-------------------
+## 1.5.0 (2019-01-23)
 
 * updates for Laravel 5.7
 
-1.3.1 (2016-08-15)
-------------------
+## 1.3.1 (2016-08-15)
 
 * bugfix in CachingSynergyWholesale::bulkCheckDomain
 
-1.3.0 (2016-08-15)
-------------------
+## 1.3.0 (2016-08-15)
 
 * added caching to SynergyWholesaleServiceProvider
 
-1.2.1 (2016-08-07)
-------------------
+## 1.2.1 (2016-08-07)
 
 * shouldn't be using deferred service provider
 
-1.2.0 (2016-08-07)
-------------------
+## 1.2.0 (2016-08-07)
 
 * changed facade to use classname
 * made more use of auto dependency injection in service provider binding 
 * updated documentation
 
-1.1.0 (2016-08-07)
-------------------
+## 1.1.0 (2016-08-07)
 
 * updated for Laravel 5.2
 
-1.0.1 (2015-05-22)
-------------------
+## 1.0.1 (2015-05-22)
 
 * removed redundant closing php tags
 
-1.0.0 (2015-02-13)
-------------------
+## 1.0.0 (2015-02-13)
 
 * service provider now Laravel 5 compatible
 * moved to using .env files for configuration
@@ -134,18 +116,15 @@ an upgrade table.
 * updated namespaceing
 * updated branch-alias
 
-0.5.0 (2014-11-27)
-------------------
+## 0.5.0 (2014-11-27)
 
 * updated requirements for hampel/synergy-wholesale to ~0.5
 
-0.4.1 (2014-10-15)
-------------------
+## 0.4.1 (2014-10-15)
 
 * updated requirement version for hampel/synergy-wholesale package
 
-0.4.0 (2014-09-26)
-------------------
+## 0.4.0 (2014-09-26)
 
 * updated requirements to Laravel v5.0
 * updated minimum PHP version to 5.4.0
@@ -153,23 +132,19 @@ an upgrade table.
 * changed minimin-stability to dev to work with Laravel v5.0 pre-release
 * service provider tweaks
 
-0.3.1 (2014-09-26)
-------------------
+## 0.3.1 (2014-09-26)
 
 * updated branch-alias to use 0.3.x as dev-master
 
-0.3.0 (2014-08-31)
-------------------
+## 0.3.0 (2014-08-31)
 
 * updated requirements to use version 0.3.0 of SynergyWholesale class
 
-0.2.0 (2014-08-29)
-------------------
+## 0.2.0 (2014-08-29)
 
 * namespace change to fit in with hampel/synergy-wholesale changes
 * implement new constructor for SynergyWholesale
 
-0.1.0 (2014-08-07)
-------------------
+## 0.1.0 (2014-08-07)
 
 * initial release
