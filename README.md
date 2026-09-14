@@ -103,13 +103,8 @@ not configured. All three implement `Hampel\SynergyWholesale\Exception\SynergyWh
 so one `catch` covers the package.
 
 Every call is logged through the application's default logger — one `info` line per operation, and
-the request and response at `debug`.
-
-**Keep the log level above `debug` anywhere the log is retained.** Redaction in
-`hampel/synergy-wholesale` 2.0.0 covers top-level fields only. `domainInfo` has its EPP code
-removed, but `listDomains` and `bulkDomainInfo` return one for every domain, one level down, and
-those are written in full: a single `listDomains` call logs the transfer code for every domain on
-the page. The `.au` association auth-info fields are not redacted at any depth.
+the request and response at `debug` with the API key, EPP auth codes, passwords and SSL private keys
+redacted at every level, including the per-domain entries of a `listDomains` response.
 
 ### Caching, retries and other decoration
 
