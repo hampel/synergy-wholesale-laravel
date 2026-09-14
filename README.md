@@ -58,6 +58,13 @@ in `config/app.php`:
 The global `SynergyWholesale` alias comes from discovery too, so it stays unavailable. The facade
 works when imported by its class name, as the examples below do.
 
+Publishing the config works once the provider is listed. Laravel Zero hides `vendor:publish` from
+`list`, but the command is there:
+
+```bash
+php <app> vendor:publish --tag=synergy-wholesale-config
+```
+
 **Inject the client into `handle()`, not into a command's constructor.** Resolving the client throws
 `MissingCredentials` when no reseller ID or API key is configured, and Laravel Zero constructs every
 command to build its command list. A constructor dependency on the client therefore breaks `list`,
