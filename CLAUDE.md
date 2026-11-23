@@ -105,12 +105,43 @@ PSR-12 via Pint, PHPStan level 10 with Larastan, `declare(strict_types=1)` every
 snake_case method names. This matches the core package, which is the reference for anything not
 settled here.
 
-Version support is policy, not preference: PHP `>=8.3` and `illuminate/support ^12.0|^13.0`. The
+Version support is policy, not preference: PHP `>=8.3` and `illuminate/* ^12.71|^13.40`. The
 package supports every PHP version with upstream security support, and the current Laravel major
-plus one back. CI tests the three corners of that range — `8.3`/`^12.0` with `--prefer-lowest`,
-`8.3`/`^13.0`, `8.5`/`^13.0` — with Testbench pinned alongside each Laravel major because its
+plus one back. CI tests the three corners of that range — `8.3`/`^12.71` with `--prefer-lowest`,
+`8.3`/`^13.40`, `8.5`/`^13.40` — with Testbench pinned alongside each Laravel major because its
 majors track Laravel's. Widening or narrowing a constraint is a policy decision, not a
 convenience: raise it with the maintainer first.
+
+## The Laravel floors are the lowest releases Composer will install
+
+**Composer 2.9 and later refuse a release affected by a published security advisory**, by default.
+On 2026-11-24, measured on PHP 8.3 with Composer 2.11.1, `laravel/framework` 12.70.0 and 13.39.0
+were refused and 12.71.0 and 13.40.0 installed. A floor below that declared versions nobody could
+install or test, and the `--prefer-lowest` job resolved 12.71 while its label said 12.0. The suite
+and PHPStan level 10 passed at both floors on PHP 8.3 with `--prefer-lowest` before the constraint
+moved: 12.71.0 resolves Testbench 10.0.0, PHPStan 2.1.22 and Larastan 3.4.2; 13.40.0 resolves
+Testbench 11.0.0, PHPStan 2.1.32 and Larastan 3.9.3.
+
+**When a new advisory covers a floor, the `--prefer-lowest` job fails to resolve.** Raise the floor
+to what resolves, raise the `laravel:` values in the CI matrix to match, and re-run the suite and
+PHPStan there on PHP 8.3. To measure, in a copy made with `git ls-files` (`git archive` leaves out
+the `export-ignore`d `tests/`, `phpunit.xml` and `phpstan.neon`), with a lock file resolved on PHP
+8.3:
+
+```bash
+composer update "laravel/framework:12.70.0" "orchestra/testbench:^10.0" -W --dry-run
+composer update "laravel/framework:13.39.0" "orchestra/testbench:^11.0" -W --dry-run
+```
+
+**Read the message, not the exit code.** Only "affected by security advisories" answers the
+question. Each of these also refuses, for a reason that reads like the answer:
+
+- no lock file: Composer refuses any partial update;
+- a lock holding Testbench 11 without `orchestra/testbench:^10.0` named: Testbench requires
+  Laravel 13;
+- a lock resolved on PHP 8.4 or later: it holds Symfony 8 packages that PHP 8.3 cannot install;
+- `illuminate/support:<version>` in place of `laravel/framework`: Testbench installs the
+  framework, which `replace`s every component, so the request conflicts with the lock.
 
 ## Where to look
 

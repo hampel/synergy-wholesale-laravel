@@ -31,9 +31,9 @@ jobs:
       # spans the range this package supports.
       matrix:
         include:
-          - { php: '8.3', laravel: '^12.0', testbench: '^10.0', deps: '--prefer-lowest' }
-          - { php: '8.3', laravel: '^13.0', testbench: '^11.0', deps: '' }
-          - { php: '8.5', laravel: '^13.0', testbench: '^11.0', deps: '' }
+          - { php: '8.3', laravel: '^12.71', testbench: '^10.0', deps: '--prefer-lowest' }
+          - { php: '8.3', laravel: '^13.40', testbench: '^11.0', deps: '' }
+          - { php: '8.5', laravel: '^13.40', testbench: '^11.0', deps: '' }
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1

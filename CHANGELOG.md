@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## Unreleased
+
+### Support
+
+* Minimum Laravel versions are now 12.71 and 13.40; `illuminate/*` requires `^12.71|^13.40`.
+  Composer 2.9 and later already refuse every earlier release, as each is covered by a published
+  security advisory.
+
 ## 2.1.1 (2026-09-14)
 
 ### Fixed

@@ -148,4 +148,4 @@ in your application:
 
 ## Requirements
 
-PHP 8.3 or later with `ext-soap`, and Laravel 12 or 13.
+PHP 8.3 or later with `ext-soap`, and Laravel 12.71 or later, or 13.40 or later.
