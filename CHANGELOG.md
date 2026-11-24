@@ -1,12 +1,17 @@
 # CHANGELOG
 
-## Unreleased
+## 2.2.0 (2026-11-24)
 
 ### Support
 
 * Minimum Laravel versions are now 12.71 and 13.40; `illuminate/*` requires `^12.71|^13.40`.
   Composer 2.9 and later already refuse every earlier release, as each is covered by a published
   security advisory.
+
+### Documentation
+
+* The README says the debug log carries registrant and contact details in full; only the API key,
+  EPP codes, passwords and SSL private keys are redacted.
 
 ## 2.1.1 (2026-09-14)
 
